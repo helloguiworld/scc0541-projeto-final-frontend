@@ -9,12 +9,50 @@ function Relatorios() {
         [
             "teste",
             "valor",
+            3,
+            "teste",
+            "valor",
             3
         ],
         [
             "teste novo",
             "outro valor",
-            4
+            4,
+            "teste",
+            "valor",
+            3
+        ],
+        [
+            "teste novo",
+            "outro valor",
+            4,
+            "teste",
+            "valor",
+            3
+        ],
+        [
+            "teste",
+            "valor",
+            3,
+            "teste",
+            "valor",
+            3
+        ],
+        [
+            "teste novo",
+            "outro valor",
+            4,
+            "teste",
+            "valor",
+            3
+        ],
+        [
+            "teste novo",
+            "outro valor",
+            4,
+            "teste",
+            "valor",
+            3
         ]
     ]
 
@@ -22,29 +60,34 @@ function Relatorios() {
         <>
             {/* { !Boolean(user) && <Navigate to="/login" /> } */}
             <h1>Página de relatorios do usuário {user?.username}</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>titulo 1</th>
-                        <th>titulo 2</th>
-                        <th>titulo 3</th>
-                    </tr>
-                </thead>
+            <div className={S.reports}>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>titulo 1</th>
+                            <th>titulo 2</th>
+                            <th>titulo 3</th>
+                            <th>titulo 4</th>
+                            <th>titulo 5</th>
+                            <th>titulo 6</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {
-                        relatorio.map((item, index) => (
-                            <tr key={index}>
-                                {
-                                    item.map((text, index) => (
-                                        <td key={index}>{text}</td>
-                                    ))
-                                }
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                    <tbody>
+                        {
+                            relatorio.map((item, index) => (
+                                <tr key={index}>
+                                    {
+                                        item.map((text, index) => (
+                                            <td key={index}>{text}</td>
+                                        ))
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }
