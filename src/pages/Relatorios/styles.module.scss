@@ -1,0 +1,70 @@
+h1 {
+    text-align:center;
+    margin-top:10px;
+}
+
+.reports {
+    overflow: auto;
+    margin-top:5%;
+    // max-height: 200px;
+    // overflow-x: auto;
+    // overflow-y: hidden;
+    .buttonsReport {
+        background:red;
+
+        & button {
+            
+        }
+    }
+
+    table {
+        border-spacing: 0;
+        max-width: 100%;
+        overflow-y: hidden;
+        margin: 0 auto;
+        border:1px solid black;
+        
+        & thead {
+            & tr {
+                background-color: #E6E6E6;
+                
+                & th {
+                    color: black;
+                    padding: 6px 10px;
+                    white-space: nowrap;
+                    font-weight: normal;
+                    border-bottom:1px solid black;
+                    &:nth-child(even) {
+                        border-left:1px solid black;
+                        border-right: 1px solid black;
+                    }
+                }
+
+            }
+        }
+        
+        & tbody {
+            overflow-y: auto;
+            & tr {
+                & td {
+                    color:black;
+                    padding: 6px 10px;
+                    white-space: nowrap;
+                    background:white;
+                    &:nth-child(even) {
+                        border-left:1px solid black;
+                        border-right: 1px solid black;
+                    }
+                }
+
+                &:nth-child(even) {
+                    background-color: #e4e4e4;
+                }
+
+                &:nth-child(odd) {
+                    background-color: #d8d8d8;
+                }
+            }
+        }
+    }
+}
