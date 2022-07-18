@@ -22,16 +22,15 @@ function PesquisaPiloto() {
 
         const name = data.get("name");
 
-        const response = await escuderiaServices.getEscuderiaDriver(1, "Gabriele");
-        // if (response.status !== 200 || response.data.length === 0) {
-        if (response.status !== 200) {
+        const response = await escuderiaServices.getEscuderiaDriver(1, name);
+        if (response.status !== 200 || response.data.length === 0) {
             setResult(null);
             setError("Piloto não encontrado");
         } else
             setResult({
-                name: "João Nomecriativo",
-                dateOfBirth: "31/02/1830",
-                nationality: "Alienígena"
+                name: `${response.data[0][0]} ${response.data[0][1]}`,
+                dateOfBirth: response.data[0][2].split('-').reverse().join('/'),
+                nationality: response.data[0][3] 
             });
     }
 

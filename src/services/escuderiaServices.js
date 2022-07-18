@@ -97,6 +97,23 @@ export async function getEscuderiaDriver(constructor_id, forename) {
         });
 }
 
+export async function getEscuderia(constructor_id) {
+    return api.get(`constructor/${constructor_id}/`)
+        .then(function (response) {
+            // handle success
+            console.log(response);
+            return response;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+            if (error.response) {
+                console.log(error.response.data);
+            }
+            return error;
+        });
+}
+
 export async function postEscuderia(constructorRef, name, nationality, url) {
     return api.post(`constructor/`, {
         constructorRef,
@@ -106,6 +123,7 @@ export async function postEscuderia(constructorRef, name, nationality, url) {
     })
         .then(function (response) {
             // handle success
+            console.log(response);
             return response;
         })
         .catch(function (error) {
@@ -123,6 +141,7 @@ const escuderiaServices = {
     report3,
     report4,
     getEscuderiaDriver,
+    getEscuderia,
     postEscuderia,
 }
 export default escuderiaServices;

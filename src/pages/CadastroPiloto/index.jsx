@@ -26,7 +26,6 @@ function CadastroPiloto() {
         const dob = data.get("dateOfBirth");
         const nationality = data.get("nationality");
 
-        console.log({ driverRef, number, code, forename, surname, dob, nationality });
         const response = await pilotoServices.postPiloto(driverRef, number, code, forename, surname, dob, nationality);
         if (response.status === 200) {
             navigate('/overview');

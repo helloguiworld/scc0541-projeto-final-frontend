@@ -24,9 +24,11 @@ function Overview() {
                 break;
             case "Escuderia":
                 escuderiaOverview();
+                getEscuderiaUsername(user.original_id);
                 break;
             case "Piloto":
                 pilotoOverview();
+                getPilotoUsername(user.original_id);
                 break;
         }
     }, []);
@@ -69,6 +71,22 @@ function Overview() {
             alert("Erro ao ler Overview do piloto, tente novamente!");
     }
 
+    async function getEscuderiaUsername(id) {
+        const response = await escuderiaServices.getEscuderia(id);
+        if (response.status === 200) {
+            setUsername(response?.data?.name);
+        } else
+            alert("Erro ao ler nome da escuderia, tente novamente!");
+    }
+
+    async function getPilotoUsername(id) {
+        const response = await pilotoServices.getPiloto(id);
+        if (response.status === 200) {
+            setUsername(`${response?.data?.forename} ${response?.data?.surname}`);
+        } else
+            alert("Erro ao ler nome do piloto, tente novamente!");
+    }
+
     function logout() {
         setUser(null);
     }
@@ -80,7 +98,7 @@ function Overview() {
                 <div className={S.usercolumn}>
                     <div className={S.username}>
                         <img alt="user" src={userimage} />
-                        <div >{user?.username}</div>
+                        <div >{username}</div>
                     </div>
                     <div className={S.ovbutton}>
                         <Link to="/relatorios">Acessar relatórios</Link>

@@ -43,13 +43,14 @@ function Relatorios() {
         if (response.status === 200) {
             if (response.data.length) {
                 setAlertText("");
-                // setTitles(['Cidade', 'Código IATA', 'Nome do Aeroporto', 'Cidade do Aeroporto', 'Distância', 'Tipo']);
-                setTitles(['Cidade', 'Nome do Aeroporto', 'Cidade do Aeroporto', 'Distância (Km)']);
-                setValues(response.data.map(item => [
+                setTitles(['Cidade', 'Código IATA', 'Nome do Aeroporto', 'Cidade do Aeroporto', 'Distância', 'Tipo']);
+                setValues(response.data.sort((a, b) => compare(a["Distância [km]"], b["Distância [km]"])).map(item => [
                     inputText,
+                    item["Código IATA"],
                     item["Nome do Aeroporto"],
-                    item["Nome da Cidade"],
-                    item["Distância [km]"]
+                    item["Cidade do Aeroporto"],
+                    item["Distância [km]"],
+                    item["Tipo de Aeroporto"],
                 ]));
             } else {
                 setValues([]);

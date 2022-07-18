@@ -69,18 +69,11 @@ export async function overview(driver_id) {
     return data;
 }
 
-export async function postPiloto(driverRef, number, code, forename, surname, dob, nationality) {
-    return api.post(`driver/`, {
-        driverRef,
-        number: Number(number),
-        code,
-        forename,
-        surname,
-        dob,
-        nationality,
-    })
+export async function getPiloto(driver_id) {
+    return api.get(`driver/${driver_id}/`)
         .then(function (response) {
             // handle success
+            console.log(response);
             return response;
         })
         .catch(function (error) {
@@ -93,8 +86,16 @@ export async function postPiloto(driverRef, number, code, forename, surname, dob
         });
 }
 
-export async function getDrivers() {
-    return api.get(`driver/`)
+export async function postPiloto(driverRef, number, code, forename, surname, dob, nationality) {
+    return api.post(`driver/`, {
+        driverRef,
+        number: Number(number),
+        code,
+        forename,
+        surname,
+        dob,
+        nationality,
+    })
         .then(function (response) {
             // handle success
             console.log(response);
@@ -115,7 +116,7 @@ const pilotoServices = {
     overview,
     report5,
     report6,
+    getPiloto,
     postPiloto,
-    getDrivers,
 }
 export default pilotoServices;
