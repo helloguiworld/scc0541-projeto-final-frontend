@@ -1,6 +1,7 @@
 import S from "./styles.module.scss";
 import { useUser } from 'contexts/user';
 import React, { useState } from 'react';
+import { Navigate } from "react-router-dom";
 
 import compare from "functions/compare";
 
@@ -24,9 +25,6 @@ function Relatorios() {
     //Matriz de valores (devem estar ordenados)
     // const [values, setValues] = useState([["valor 1x1", "valor 1x2", "valor 1x3"], ["valor 2x1", "valor 2x2", "valor 2x3"]]);
     const [values, setValues] = useState([]);
-
-    //Array de larguras (devem estar ordenados e cada unidade equivale a 120px)
-    const [widths, setWidths] = useState([1, 1, 1]);
 
 
     async function readReport1() {
@@ -114,95 +112,98 @@ function Relatorios() {
     }
 
     return (
-        <section className="section-view">
-            <h1>Página de relatorios do usuário {user?.username}</h1>
-            <div className={S.reports}>
-                <div className={S.buttonsReport}>
-                    {user?.role === "Administrador" && (
-                        <>
-                            <button type='button' onClick={readReport1}>
-                                Resultado por status
-                            </button>
-                            <button type='button' onClick={() => {
-                                if (report !== 2) {
-                                    setReport(2);
-                                    setValues([]);
-                                    setAlertText("Digite o nome de uma cidade!");
-                                }
-                            }}>
-                                Aeroporto por cidade
-                            </button>
-                        </>
-                    )}
-
-                    {user?.role === "Escuderia" && (
-                        <>
-                            <button type='button' onClick={readReport3}>
-                                Pilotos em 1ª posição
-                            </button>
-                            <button type='button' onClick={readReport4}>
-                                Resultados por status
-                            </button>
-                        </>
-                    )}
-
-                    {user?.role === "Piloto" && (
-                        <>
-                            <button type='button' onClick={readReport5}>
-                                Quantidade de vitórias
-                            </button>
-                            <button type='button' onClick={readReport6}>
-                                Resultados por status
-                            </button>
-                        </>
-                    )}
-                </div>
-
-                <div className={S.tableContainer}>
-                    {
-                        report === 2 ?
-                            <div className={S.tableSearch}>
-                                <label htmlFor="">Cidade:</label>
-                                <input type="text" onChange={e => setInputText(e.target.value)} />
-                                <button type="button" onClick={readReport2}>Pesquisar</button>
-                            </div>
-                            : null
-                    }
-
-                    {alertText ? <span className={S.tableMessage}>{alertText}</span> : null}
-
-                    {
-                        values && values.length ?
-                            <table>
-                                <thead>
-                                    <tr>
-                                        {titles.map((title, index) => {
-                                            return (
-                                                <th key={index} className={"3widht"}>{title}</th>
-                                            )
-                                        })}
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {
-                                        values.map((item, index) => (
-                                            <tr key={index}>
-                                                {
-                                                    item.map((text, index) => (
-                                                        <td key={index} className={"3widht"}>{text}</td>
-                                                    ))
-                                                }
-                                            </tr>
-                                        ))
+        <>
+            {!user && <Navigate to="/login" />}
+            <section className="section-view">
+                <h1>Página de relatorios do usuário {user?.username}</h1>
+                <div className={S.reports}>
+                    <div className={S.buttonsReport}>
+                        {user?.role === "Administrador" && (
+                            <>
+                                <button type='button' onClick={readReport1}>
+                                    Resultado por status
+                                </button>
+                                <button type='button' onClick={() => {
+                                    if (report !== 2) {
+                                        setReport(2);
+                                        setValues([]);
+                                        setAlertText("Digite o nome de uma cidade!");
                                     }
-                                </tbody>
-                            </table>
-                            : null
-                    }
+                                }}>
+                                    Aeroporto por cidade
+                                </button>
+                            </>
+                        )}
+
+                        {user?.role === "Escuderia" && (
+                            <>
+                                <button type='button' onClick={readReport3}>
+                                    Pilotos em 1ª posição
+                                </button>
+                                <button type='button' onClick={readReport4}>
+                                    Resultados por status
+                                </button>
+                            </>
+                        )}
+
+                        {user?.role === "Piloto" && (
+                            <>
+                                <button type='button' onClick={readReport5}>
+                                    Quantidade de vitórias
+                                </button>
+                                <button type='button' onClick={readReport6}>
+                                    Resultados por status
+                                </button>
+                            </>
+                        )}
+                    </div>
+
+                    <div className={S.tableContainer}>
+                        {
+                            report === 2 ?
+                                <div className={S.tableSearch}>
+                                    <label htmlFor="">Cidade:</label>
+                                    <input type="text" onChange={e => setInputText(e.target.value)} />
+                                    <button type="button" onClick={readReport2}>Pesquisar</button>
+                                </div>
+                                : null
+                        }
+
+                        {alertText ? <span className={S.tableMessage}>{alertText}</span> : null}
+
+                        {
+                            values && values.length ?
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            {titles.map((title, index) => {
+                                                return (
+                                                    <th key={index} className={"3widht"}>{title}</th>
+                                                )
+                                            })}
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {
+                                            values.map((item, index) => (
+                                                <tr key={index}>
+                                                    {
+                                                        item.map((text, index) => (
+                                                            <td key={index} className={"3widht"}>{text}</td>
+                                                        ))
+                                                    }
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                                : null
+                        }
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     )
 }
 

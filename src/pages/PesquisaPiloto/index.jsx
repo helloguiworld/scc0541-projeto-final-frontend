@@ -1,15 +1,13 @@
 import S from "./styles.module.scss";
 import { useState } from "react";
 import { useUser } from 'contexts/user'
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import escuderiaServices from "services/escuderiaServices";
 
 function PesquisaPiloto() {
-    const navigate = useNavigate()
     const [error, setError] = useState(null);
     const [result, setResult] = useState(null);
-    const [drivers, setDrivers] = useState([]);
 
     const user = useUser();
 
@@ -38,34 +36,37 @@ function PesquisaPiloto() {
     }
 
     return (
-        <section className={`container ${S.wrapper}`}>
-            <div className={S.card}>
-                <form method="post" onSubmit={handleSubmit}>
-                    <div className={S.form_group}>
-                        <label htmlFor="text">Nome do Piloto <span className="warning">*</span></label>
-                        <input type="text" name="name" id="name" required />
-                    </div>
-                    <button type="submit">Verificar se há piloto</button>
-                </form>
-                {error && (<p className={`warning ${S.error}`}>{error}</p>)}
-                {result && (
-                    <div className={S.results}>
-                        <div>
-                            <p>Nome Completo</p>
-                            <p>{result.name}</p>
+        <>
+            {!user && <Navigate to="/login" />}
+            <section className={`container ${S.wrapper}`}>
+                <div className={S.card}>
+                    <form method="post" onSubmit={handleSubmit}>
+                        <div className={S.form_group}>
+                            <label htmlFor="text">Nome do Piloto <span className="warning">*</span></label>
+                            <input type="text" name="name" id="name" required />
                         </div>
-                        <div>
-                            <p>Data de nascimento</p>
-                            <p>{result.dateOfBirth}</p>
+                        <button type="submit">Verificar se há piloto</button>
+                    </form>
+                    {error && (<p className={`warning ${S.error}`}>{error}</p>)}
+                    {result && (
+                        <div className={S.results}>
+                            <div>
+                                <p>Nome Completo</p>
+                                <p>{result.name}</p>
+                            </div>
+                            <div>
+                                <p>Data de nascimento</p>
+                                <p>{result.dateOfBirth}</p>
+                            </div>
+                            <div>
+                                <p>Nacionalidade</p>
+                                <p>{result.nationality}</p>
+                            </div>
                         </div>
-                        <div>
-                            <p>Nacionalidade</p>
-                            <p>{result.nationality}</p>
-                        </div>
-                    </div>
-                )}
-            </div>
-        </section>
+                    )}
+                </div>
+            </section>
+        </>
     )
 }
 
