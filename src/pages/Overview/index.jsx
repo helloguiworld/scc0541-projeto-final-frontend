@@ -13,12 +13,14 @@ function Overview() {
     const user = useUser();
     const setUser = useSetUser();
     const [data, setData] = useState([]);
+    const [username, setUsername] = useState("");
 
     useEffect(() => {
         // eslint-disable-next-line default-case
         switch (user?.role) {
             case "Administrador":
                 adminOverview();
+                setUsername("Admin");
                 break;
             case "Escuderia":
                 escuderiaOverview();

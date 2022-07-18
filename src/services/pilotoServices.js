@@ -78,7 +78,6 @@ export async function postPiloto(driverRef, number, code, forename, surname, dob
         surname,
         dob,
         nationality,
-        url: ""
     })
         .then(function (response) {
             // handle success

@@ -53,15 +53,17 @@ function Relatorios() {
                     item["Nome da Cidade"],
                     item["Distância [km]"]
                 ]));
-            } else
+            } else {
+                setValues([]);
                 setAlertText(`Nenhum aeroporto encontrado para ${inputText}`);
+            }
         } else
             alert("Erro ao ler relatório 2, tente novamente!");
     }
 
     async function readReport3() {
         setReport(3);
-        const response = await escuderiaServices.report3(1);
+        const response = await escuderiaServices.report3(user?.original_id);
         if (response.status === 200) {
             setAlertText("");
             setTitles(['ID', 'Nome completo', 'Vitórias']);
@@ -76,7 +78,7 @@ function Relatorios() {
 
     async function readReport4() {
         setReport(4);
-        const response = await escuderiaServices.report4(1);
+        const response = await escuderiaServices.report4(user?.original_id);
         if (response.status === 200) {
             setAlertText("");
             setTitles(['Status', 'Contagem']);
@@ -87,7 +89,7 @@ function Relatorios() {
 
     async function readReport5() {
         setReport(5);
-        const response = await pilotoServices.report5(12);
+        const response = await pilotoServices.report5(user?.original_id);
         if (response.status === 200) {
             setAlertText("");
             setTitles(['Ano', 'Corrida', 'Vitórias']);
@@ -102,7 +104,7 @@ function Relatorios() {
 
     async function readReport6() {
         setReport(6);
-        const response = await pilotoServices.report6(12);
+        const response = await pilotoServices.report6(user?.original_id);
         if (response.status === 200) {
             setAlertText("");
             setTitles(['Status', 'Contagem']);
