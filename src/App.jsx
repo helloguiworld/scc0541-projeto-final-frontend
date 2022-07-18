@@ -5,10 +5,13 @@ import { UserProvider } from "contexts/user";
 import Login from "pages/Login";
 import Overview from "pages/Overview";
 import Relatorios from "pages/Relatorios";
+import CadastroEscuderia from "pages/CadastroEscuderia";
+import CadastroPiloto from "pages/CadastroPiloto";
+import PesquisaPiloto from "pages/PesquisaPiloto";
+import PesquisaEscuderia from "pages/PesquisaEscuderia";
 
 import "global.scss";
 
-/* Router and default layout (Header and footer) */
 function App() {
   return (
     <UserProvider>
@@ -19,6 +22,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/relatorios" element={<Relatorios />} />
+            <Route path="/cadastro/escuderia" element={<CadastroEscuderia />} />
+            <Route path="/cadastro/piloto" element={<CadastroPiloto />} />
+            <Route path="/pesquisa/piloto" element={<PesquisaPiloto />} />
+            {/* <Route path="/pesquisa/escuderia" element={<PesquisaEscuderia />} /> */}
           </Routes>
         </main>   
       </BrowserRouter>

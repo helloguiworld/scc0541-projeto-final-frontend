@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 
 
 function Login(){
-    const loggedIn = Boolean(useUser());//Verifica se o usuário é null ou não
+    const loggedIn = Boolean(useUser()); //Verifica se o usuário é null ou não
 
     return (
         <>
