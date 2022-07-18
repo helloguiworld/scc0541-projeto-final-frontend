@@ -23,11 +23,11 @@ function Overview() {
                 setUsername("Admin");
                 break;
             case "Escuderia":
-                escuderiaOverview();
+                escuderiaOverview(user.original_id);
                 getEscuderiaUsername(user.original_id);
                 break;
             case "Piloto":
-                pilotoOverview();
+                pilotoOverview(user.original_id);
                 getPilotoUsername(user.original_id);
                 break;
         }
@@ -46,8 +46,8 @@ function Overview() {
             alert("Erro ao ler Overview do admin, tente novamente!");
     }
 
-    async function escuderiaOverview() {
-        const response = await escuderiaServices.overview(1);
+    async function escuderiaOverview(id) {
+        const response = await escuderiaServices.overview(id);
         if (Object.keys(response).length) {
             setData([
                 ["Vitórias da escuderia", response.wins],
@@ -59,8 +59,8 @@ function Overview() {
             alert("Erro ao ler Overview da escuderia, tente novamente!");
     }
 
-    async function pilotoOverview() {
-        const response = await pilotoServices.overview(1);
+    async function pilotoOverview(id) {
+        const response = await pilotoServices.overview(id);
         if (Object.keys(response).length) {
             setData([
                 ["Vitórias do piloto", response.wins],
