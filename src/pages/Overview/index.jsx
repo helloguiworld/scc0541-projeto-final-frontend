@@ -75,7 +75,6 @@ function Overview() {
 
     return (
         <>
-            {!user && <Navigate to="/login" />}
             <section className={S.overview}>
                 <div className={S.usercolumn}>
                     <div className={S.username}>
