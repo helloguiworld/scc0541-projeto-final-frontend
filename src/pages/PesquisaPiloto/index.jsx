@@ -1,0 +1,72 @@
+import S from "./styles.module.scss";
+import { useState } from "react";
+import { useUser } from 'contexts/user'
+import { useNavigate } from "react-router-dom";
+
+import escuderiaServices from "services/escuderiaServices";
+
+function PesquisaPiloto() {
+    const navigate = useNavigate()
+    const [error, setError] = useState(null);
+    const [result, setResult] = useState(null);
+    const [drivers, setDrivers] = useState([]);
+
+    const user = useUser();
+
+
+    // Executa o submit do form
+    const handleSubmit = async (ev) => {
+        ev.preventDefault();
+        setError(null);
+
+        const form = ev.target;
+        const data = new FormData(form);
+
+        const name = data.get("name");
+
+        const response = await escuderiaServices.getEscuderiaDriver(1, "Gabriele");
+        // if (response.status !== 200 || response.data.length === 0) {
+        if (response.status !== 200) {
+            setResult(null);
+            setError("Piloto não encontrado");
+        } else
+            setResult({
+                name: "João Nomecriativo",
+                dateOfBirth: "31/02/1830",
+                nationality: "Alienígena"
+            });
+    }
+
+    return (
+        <section className={`container ${S.wrapper}`}>
+            <div className={S.card}>
+                <form method="post" onSubmit={handleSubmit}>
+                    <div className={S.form_group}>
+                        <label htmlFor="text">Nome do Piloto <span className="warning">*</span></label>
+                        <input type="text" name="name" id="name" required />
+                    </div>
+                    <button type="submit">Verificar se há piloto</button>
+                </form>
+                {error && (<p className={`warning ${S.error}`}>{error}</p>)}
+                {result && (
+                    <div className={S.results}>
+                        <div>
+                            <p>Nome Completo</p>
+                            <p>{result.name}</p>
+                        </div>
+                        <div>
+                            <p>Data de nascimento</p>
+                            <p>{result.dateOfBirth}</p>
+                        </div>
+                        <div>
+                            <p>Nacionalidade</p>
+                            <p>{result.nationality}</p>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </section>
+    )
+}
+
+export default PesquisaPiloto

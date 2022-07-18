@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 import { useUser, useSetUser } from "contexts/user";
 
+import loginServices from "services/loginServices";
 
 function LoginForm() {
     const [error, setError] = useState(null);
-    const setUser = useSetUser();
     const user = useUser();
+    const setUser = useSetUser();
     const navigate = useNavigate();
 
     const handleSubmit = async (ev) => {
@@ -21,20 +22,24 @@ function LoginForm() {
         const username = data.get("username");
         const password = data.get("password");
 
-        try {
-            setUser({ username, tipo: "Usuario" });
-        }
-        catch (err) {
-            console.log(err)
-            setError(err.response.data.detail);
-        }
+        const response = await loginServices.login(username, password);
+        if (response.status === 200) {
+            try {
+                setUser(response.data);
+            }
+            catch (err) {
+                console.log(err);
+                setError(err.response.data.detail);
+            }
+        } else
+            alert("Erro ao efetuar login!");
     }
 
     return (
         <section className={`container ${S.wrapper}`}>
             <h2>Sistema Fórmula 1 - Grupo 10</h2>
             <div className={S.card}>
-                { user ? <p>{JSON.stringify(user) + "Remove isso depois"}</p> : null }
+                {user ? <p>{JSON.stringify(user) + "Remove isso depois"}</p> : null}
                 <form method="post" onSubmit={handleSubmit}>
                     <div className={S.form_group}>
                         <label htmlFor="text">Nome de usuário <span className="warning">*</span></label>
